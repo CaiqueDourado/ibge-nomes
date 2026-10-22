@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ibge-nomes"
-version = "0.1.0"
+version = "0.1.1"
 description = "Client for IBGE's names API (Censo 2010): rank, frequency, state, sex and decade of birth for Brazilian first names. Standard library only."
 readme = "README.md"
 requires-python = ">=3.10"

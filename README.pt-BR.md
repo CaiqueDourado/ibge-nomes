@@ -64,6 +64,8 @@ Bom saber:
 - **Só primeiro nome.** O Censo contou primeiros nomes, então nomes compostos ("Maria Júlia") não têm dado.
 - **Nomes ausentes.** Nomes sem dado no IBGE simplesmente não voltam; o cliente trata isso como falta de dado, não como erro.
 - **Acentos são ignorados.** O cliente manda o nome em maiúsculas sem acento (`fold`) e casa a resposta do mesmo jeito.
+- **Décadas sem dado ficam de fora.** Caique não tem contagem antes de 1960; `by_decade` omite essas décadas (zero ou poucas pessoas).
+- **A década do ranking é o ano em que ela termina.** `ranking(decade=1990)` traz quem nasceu em [1980, 1990[.
 - **Com calma.** Por padrão espera 0,2 s entre chamadas e põe 20 nomes em cada chamada v2. Um lote recusado pelo servidor é refeito nome a nome.
 
 ## Limites

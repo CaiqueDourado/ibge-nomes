@@ -69,6 +69,8 @@ Things worth knowing:
 - **First names only.** The Census counted first names, so compound names ("Maria Júlia") have no data.
 - **Missing names.** Names IBGE has no data for are simply not returned; the client treats them as no data, not as an error.
 - **Accents are ignored.** The client sends names in upper case without accents (`fold`) and matches answers the same way.
+- **Decades without data are missing.** Caique has no count before 1960; `by_decade` leaves those decades out (zero or too few people).
+- **The ranking's decade is the year it ends.** `ranking(decade=1990)` lists people born in [1980, 1990[.
 - **Be gentle.** The default waits 0.2 s between calls and puts 20 names in each v2 call. A batch the server refuses is retried one name at a time.
 
 ## Limits

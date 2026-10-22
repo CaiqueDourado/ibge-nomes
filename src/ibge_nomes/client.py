@@ -21,6 +21,7 @@ import gzip
 import hashlib
 import json
 import re
+import sys
 import time
 import unicodedata
 import urllib.error
@@ -50,6 +51,16 @@ def decade_label(period: str) -> str | None:
     if len(years) == 1:
         return "before_1930" if years[0] <= 1930 else f"{years[0]}s"
     return f"{years[0]}s"
+
+
+def is_json(text: str) -> bool:
+    if not text.strip():
+        return True
+    try:
+        json.loads(text)
+        return True
+    except ValueError:
+        return False
 
 
 class ApiError(RuntimeError):
@@ -84,6 +95,7 @@ class IbgeNomes:
     batch: int = 20            # names per v2 call
     transport: Transport = field(default_factory=urllib_transport)
     calls: int = 0
+    skipped: list = field(default_factory=list)
     _last: float = 0.0
 
     # ---- raw access -------------------------------------------------------------------------
@@ -92,7 +104,10 @@ class IbgeNomes:
         url = f"{BASE}{path}" + (f"?{query}" if query else "")
         cached = self._cache_file(url)
         if cached and cached.exists():
-            return cached.read_text(encoding="utf-8")
+            text = cached.read_text(encoding="utf-8")
+            if is_json(text):
+                return text
+            cached.unlink()  # a bad answer cached by an older version: ask again
         for attempt in range(1, self.retries + 1):
             pause = self.wait - (time.monotonic() - self._last)
             if pause > 0:
@@ -107,7 +122,12 @@ class IbgeNomes:
                 time.sleep(2 ** attempt)
                 continue
             if status == 200:
-                text = body.decode("utf-8")
+                text = body.decode("utf-8", "replace")
+                if not is_json(text):  # the server sometimes answers 200 with an HTML error page
+                    if attempt < self.retries:
+                        time.sleep(2 ** attempt)
+                        continue
+                    raise ApiError(url, 502, "answer is not JSON: " + text[:120])
                 if cached:
                     cached.parent.mkdir(parents=True, exist_ok=True)
                     cached.write_text(text, encoding="utf-8")
@@ -146,14 +166,16 @@ class IbgeNomes:
                 result.update(self._by_decade_call(chunk, sex, locality))
                 continue
             except ApiError as error:
-                if error.status not in (400, 404, 414, 500):
+                if error.status not in (400, 404, 414, 500, 502):
                     raise
             for one in chunk:  # the server refused the batch: one name at a time, skip names it rejects
                 try:
                     result.update(self._by_decade_call([one], sex, locality))
                 except ApiError as error:
-                    if error.status not in (400, 404, 500):
+                    if error.status not in (400, 404, 500, 502):
                         raise
+                    self.skipped.append(one)
+                    print(f"skipped {one}: {error}", file=sys.stderr)
         return result
 
     def _by_decade_call(self, chunk: list[str], sex, locality) -> dict[str, dict[str, int]]:
@@ -180,7 +202,8 @@ class IbgeNomes:
         return rows
 
     def ranking(self, decade: int | None = None, sex: str | None = None, locality: str | int | None = None) -> list[dict]:
-        """v2 ranking: [{"nome": "MARIA", "frequencia": ..., "ranking": 1}, ...]."""
+        """v2 ranking: [{"nome": "MARIA", "frequencia": ..., "ranking": 1}, ...].
+        Note: `decada=1990` means people born in [1980, 1990[ (the year the decade ends)."""
         answer = self.get_json("/v2/censos/nomes/ranking", {"decada": decade, "sexo": sex, "localidade": locality})
         return answer[0].get("res", []) if answer else []
 

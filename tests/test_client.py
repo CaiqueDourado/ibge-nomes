@@ -114,3 +114,28 @@ def test_enrich_resumes(tmp_path):
     lines = out.read_text(encoding="utf-8").splitlines()
     assert len(lines) == 4 and lines[0].startswith("name,female,male,share_female")
     assert "0.75" in lines[1]
+
+
+def test_html_answer_is_retried_then_split(tmp_path, monkeypatch):
+    answers = {"n": 0}
+
+    def flaky(url):
+        if "|" in urllib.parse.unquote(url):
+            return 200, b"<html>erro</html>"
+        answers["n"] += 1
+        return Fake()(url)
+
+    c = IbgeNomes(wait=0, retries=2, batch=2, transport=flaky, cache=tmp_path)
+    monkeypatch.setattr("ibge_nomes.client.time.sleep", lambda s: None)
+    out = c.by_decade(["Maria", "Ana"])
+    assert set(out) == {"MARIA", "ANA"} and answers["n"] == 2
+
+
+def test_bad_cache_file_is_ignored(tmp_path):
+    fake = Fake()
+    c = IbgeNomes(wait=0, retries=1, transport=fake, cache=tmp_path)
+    c.basic("Caique")
+    for f in tmp_path.rglob("*.json"):
+        f.write_text("<html>", encoding="utf-8")
+    assert c.basic("Caique")["freq"] == 50902
+    assert len(fake.urls) == 2

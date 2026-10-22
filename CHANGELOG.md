@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.1] - 2026-10-21
+
+### Fixed
+- An answer with status 200 that is not JSON (an HTML error page) is retried, never cached, and a batch that keeps failing is split into single names; names that still fail are listed in `skipped` and printed.
+- A bad answer cached by 0.1.0 is discarded and asked again.
+
+### Documented
+- `ranking(decade=1990)` returns people born in [1980, 1990[: the API's decade is the year it ends.
+- Decades without a published count are missing from `by_decade` (zero or too few people).
+
 ## [0.1.0] - 2026-10-21
 
 ### Added

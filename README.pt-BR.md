@@ -15,6 +15,22 @@ $ ibge-nomes basica caique
 
 Começou como a rotina em C# que enriqueceu os 172 mil nomes do site nomessobrenomes.com em 2023. Aquela rotina só chamava o endpoint básico, sem filtro de sexo nem de região, então duas colunas voltaram vazias para todos os nomes. Esta reescrita cobre todos os endpoints. Foi com ela que essas colunas foram preenchidas na [base de nomes e sobrenomes](https://github.com/CaiqueDourado/nomes-e-sobrenomes-brasil).
 
+![by_decade para Maria e Caique](docs/img/by_decade.pt-BR.png)
+
+*Respostas reais da API: as Marias vivas em 2010 nasceram sobretudo nos anos 50 e 60; Caique quase não existia antes dos anos 90. O gráfico é feito por `tools/make_figure.py`.*
+
+```mermaid
+flowchart LR
+    N["nomes<br/>Maria, João, Caique…"] --> F["fold()<br/>MARIA, JOAO, CAIQUE"]
+    F --> B["lotes de 20<br/>maria|joao|…"]
+    B --> V2["v2 /censos/nomes/…<br/>todos · sexo=F · sexo=M"]
+    F --> V1["v1 /basica?nome="]
+    V1 --> R1["posição, freq., %,<br/>estado, grafias"]
+    V2 --> R2["pessoas por década<br/>antes de 1930 … 2000s"]
+    R2 --> S["summarize()<br/>mulheres, homens,<br/>proporção, década de pico"]
+    C[("cache/<br/>respostas brutas")] -.-> V1 & V2
+```
+
 ## Instalação
 
 ```bash

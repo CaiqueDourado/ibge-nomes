@@ -15,6 +15,22 @@ $ ibge-nomes basica caique
 
 It began as the C# routine that enriched the 172,000 names of the site nomessobrenomes.com in 2023. That routine only called the basic endpoint, with no sex or region filter, so two columns came back empty for every name. This rewrite covers all the endpoints and was used to fill them in the [Brazilian names dataset](https://github.com/CaiqueDourado/nomes-e-sobrenomes-brasil).
 
+![by_decade for Maria and Caique](docs/img/by_decade.png)
+
+*Real answers of the API: Maria peaked among people born in the 1950s and 1960s; Caique barely existed before the 1990s. `tools/make_figure.py` draws it.*
+
+```mermaid
+flowchart LR
+    N["names<br/>Maria, João, Caique…"] --> F["fold()<br/>MARIA, JOAO, CAIQUE"]
+    F --> B["batches of 20<br/>maria|joao|…"]
+    B --> V2["v2 /censos/nomes/…<br/>all · sexo=F · sexo=M"]
+    F --> V1["v1 /basica?nome="]
+    V1 --> R1["rank, freq, %,<br/>top state, spellings"]
+    V2 --> R2["people per decade<br/>before 1930 … 2000s"]
+    R2 --> S["summarize()<br/>female, male, share,<br/>peak decade"]
+    C[("cache/<br/>raw answers")] -.-> V1 & V2
+```
+
 ## Install
 
 ```bash

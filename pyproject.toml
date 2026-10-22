@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ibge-nomes"
+version = "0.1.0"
+description = "Client for IBGE's names API (Censo 2010): rank, frequency, state, sex and decade of birth for Brazilian first names. Standard library only."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Caique Dourado" }]
+keywords = ["ibge", "names", "nomes", "census", "censo", "brazil", "portuguese", "api-client"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Natural Language :: Portuguese (Brazilian)",
+    "Programming Language :: Python :: 3",
+]
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+windows = ["truststore>=0.9"]
+
+[project.scripts]
+ibge-nomes = "ibge_nomes.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/CaiqueDourado/ibge-nomes"
+Issues = "https://github.com/CaiqueDourado/ibge-nomes/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ibge_nomes"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

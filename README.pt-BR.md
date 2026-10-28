@@ -5,6 +5,8 @@
 [![test](https://github.com/CaiqueDourado/ibge-nomes/actions/workflows/test.yml/badge.svg)](https://github.com/CaiqueDourado/ibge-nomes/actions/workflows/test.yml)
 ![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-blue)
 
+![ibge-nomes](docs/img/cover.pt-BR.png)
+
 Cliente Python da **API de nomes do IBGE**, o serviço público que responde quantos brasileiros tinham cada primeiro nome no **Censo 2010**: posição, frequência, estado onde o nome é mais comum, quantos são mulheres e homens e em que década nasceram. Só biblioteca padrão, sem chave.
 
 ```text

@@ -5,6 +5,8 @@
 [![test](https://github.com/CaiqueDourado/ibge-nomes/actions/workflows/test.yml/badge.svg)](https://github.com/CaiqueDourado/ibge-nomes/actions/workflows/test.yml)
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue)
 
+![ibge-nomes](docs/img/cover.png)
+
 Python client for **IBGE's names API**, the public service that answers how many Brazilians had each first name in the **2010 Census**: rank, frequency, the state where the name is most common, how many are women and men, and in which decade they were born. Standard library only, no key needed.
 
 ```text

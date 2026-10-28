@@ -15,7 +15,7 @@ $ ibge-nomes basica caique
  "ufMaxProp": "68.3960", "regiao": 0, "sexo": "", "nomes": "CAYQUE,KAIQUE,KAYQUE"}
 ```
 
-It began as the C# routine that enriched the 172,000 names of the site nomessobrenomes.com in 2023. That routine only called the basic endpoint, with no sex or region filter, so two columns came back empty for every name. This rewrite covers all the endpoints and was used to fill them in the [Brazilian names dataset](https://github.com/CaiqueDourado/nomes-e-sobrenomes-brasil).
+It began as the C# routine that enriched the 172,000 names of the site nomessobrenomes.com in 2023. That routine only called the basic endpoint, with no sex or region filter, so two columns came back empty for every name. This rewrite covers all the endpoints and was used to fill them in the [Brazilian names dataset](https://github.com/CaiqueDourado/brazilian-names-surnames).
 
 ![by_decade for Maria and Caique](docs/img/by_decade.png)
 
@@ -96,6 +96,6 @@ Things worth knowing:
 - The data is the 2010 Census. Names given after 2010 are not there.
 - The API's answer format is not versioned beyond v1/v2. If a call starts failing, `ibge-nomes probe` prints the raw answers.
 
-Related: [nomes-e-sobrenomes-brasil](https://github.com/CaiqueDourado/nomes-e-sobrenomes-brasil) (the dataset built with it), [municipios-e-estados-do-brasil](https://github.com/CaiqueDourado/municipios-e-estados-do-brasil) (IBGE codes for `localidade`), [PtBr.Text](https://github.com/CaiqueDourado/PtBr.Text).
+Related: [brazilian-names-surnames](https://github.com/CaiqueDourado/brazilian-names-surnames) (the dataset built with it), [municipios-e-estados-do-brasil](https://github.com/CaiqueDourado/municipios-e-estados-do-brasil) (IBGE codes for `localidade`), [PtBr.Text](https://github.com/CaiqueDourado/PtBr.Text).
 
 MIT License. The data belongs to IBGE.

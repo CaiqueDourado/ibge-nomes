@@ -15,7 +15,7 @@ $ ibge-nomes basica caique
  "ufMaxProp": "68.3960", "regiao": 0, "sexo": "", "nomes": "CAYQUE,KAIQUE,KAYQUE"}
 ```
 
-Começou como a rotina em C# que enriqueceu os 172 mil nomes do site nomessobrenomes.com em 2023. Aquela rotina só chamava o endpoint básico, sem filtro de sexo nem de região, então duas colunas voltaram vazias para todos os nomes. Esta reescrita cobre todos os endpoints. Foi com ela que essas colunas foram preenchidas na [base de nomes e sobrenomes](https://github.com/CaiqueDourado/nomes-e-sobrenomes-brasil).
+Começou como a rotina em C# que enriqueceu os 172 mil nomes do site nomessobrenomes.com em 2023. Aquela rotina só chamava o endpoint básico, sem filtro de sexo nem de região, então duas colunas voltaram vazias para todos os nomes. Esta reescrita cobre todos os endpoints. Foi com ela que essas colunas foram preenchidas na [base de nomes e sobrenomes](https://github.com/CaiqueDourado/brazilian-names-surnames).
 
 ![by_decade para Maria e Caique](docs/img/by_decade.pt-BR.png)
 
@@ -91,6 +91,6 @@ Bom saber:
 - Os dados são do Censo 2010; nomes dados depois de 2010 não aparecem.
 - O formato da resposta não tem versão além de v1/v2. Se uma chamada começar a falhar, `ibge-nomes probe` mostra as respostas brutas.
 
-Relacionados: [nomes-e-sobrenomes-brasil](https://github.com/CaiqueDourado/nomes-e-sobrenomes-brasil) (a base feita com ele), [municipios-e-estados-do-brasil](https://github.com/CaiqueDourado/municipios-e-estados-do-brasil) (códigos do IBGE para `localidade`), [PtBr.Text](https://github.com/CaiqueDourado/PtBr.Text).
+Relacionados: [brazilian-names-surnames](https://github.com/CaiqueDourado/brazilian-names-surnames) (a base feita com ele), [municipios-e-estados-do-brasil](https://github.com/CaiqueDourado/municipios-e-estados-do-brasil) (códigos do IBGE para `localidade`), [PtBr.Text](https://github.com/CaiqueDourado/PtBr.Text).
 
 Licença MIT. Os dados são do IBGE.

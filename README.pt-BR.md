@@ -91,7 +91,7 @@ Bom saber:
 - Os dados são do Censo 2010; nomes dados depois de 2010 não aparecem.
 - O formato da resposta não tem versão além de v1/v2. Se uma chamada começar a falhar, `ibge-nomes probe` mostra as respostas brutas.
 
-Artigo: [Enriquecendo cadastros com APIs abertas](https://github.com/CaiqueDourado/articles/blob/main/open-apis/README.pt-BR.md): o que esta API conta sobre um cadastro, e até onde vai um primeiro nome.
+Artigo: [Enriquecendo cadastros com APIs abertas](https://github.com/CaiqueDourado/articles/blob/main/open-apis/README.pt-BR.md) ([em inglês no Medium](https://medium.com/@caiquedourado/enriching-sign-up-data-with-open-apis-37388f435398)): o que esta API conta sobre um cadastro, e até onde vai um primeiro nome.
 
 Relacionados: [brazilian-names-surnames](https://github.com/CaiqueDourado/brazilian-names-surnames) (a base feita com ele), [municipios-e-estados-do-brasil](https://github.com/CaiqueDourado/municipios-e-estados-do-brasil) (códigos do IBGE para `localidade`), [PtBr.Text](https://github.com/CaiqueDourado/PtBr.Text).
 
